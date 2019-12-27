@@ -5,7 +5,7 @@
         <el-col :span="20">
           <img src="./assets/logo.svg" alt="logo" />
         </el-col>
-        <el-col :span="4" class="right">
+        <el-col :span="4" class="right" v-if="show">
           <span class="user">管理员</span>
           <el-button type="danger" size="small">注销</el-button>
         </el-col>
@@ -18,7 +18,7 @@
           <el-menu-item index="1">
             <i class="el-icon-menu"></i>
             <span slot="title">
-              <router-link to="/">主页</router-link>
+              <router-link to="/home">主页</router-link>
             </span>
           </el-menu-item>
           <el-submenu index="2" :collapse="false">
@@ -57,6 +57,24 @@
     </el-container>
   </el-container>
 </template>
+
+<script>
+import axios from 'axios'
+export default {
+  name: 'app',
+  data(){
+    return {
+      show: false
+    }
+  },
+  watch: {
+    '$router'(to, from){
+      console.log(to);
+      console.log(from);
+    }
+  },
+}
+</script>
 
 <style>
 body {

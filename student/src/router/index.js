@@ -7,6 +7,11 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'login',
+    component: () => import('@/views/login.vue')
+  },
+  {
+    path: '/home',
     name: 'home',
     component: Home
   },
@@ -38,6 +43,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 

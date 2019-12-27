@@ -11,6 +11,18 @@ Vue.filter('formatDate', filter.formatDate);
 
 Vue.config.productionTip = false
 
+ let username = localStorage.getItem('username');
+router.beforeEach((to, from, next) => {
+  console.log(to);
+  console.log(from);
+  if(!username && to.name !== '/'){
+    next('/');
+  }else{
+    next();
+  }
+  
+}) 
+
 new Vue({
   router,
   store,
