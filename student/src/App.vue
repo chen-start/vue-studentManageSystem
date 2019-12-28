@@ -5,9 +5,9 @@
         <el-col :span="20">
           <img src="./assets/logo.svg" alt="logo" />
         </el-col>
-        <el-col :span="4" class="right" v-if="show">
-          <span class="user">管理员</span>
-          <el-button type="danger" size="small">注销</el-button>
+        <el-col :span="4" class="right">
+          <span class="user">{{ name }}</span>
+          <el-button type="danger" size="small" @click="logout">注销</el-button>
         </el-col>
       </el-row>
     </el-header>
@@ -60,17 +60,26 @@
 
 <script>
 import axios from 'axios'
+import {mapState} from 'vuex'
 export default {
   name: 'app',
   data(){
     return {
-      show: false
+      name: ''
     }
   },
-  watch: {
-    '$router'(to, from){
-      console.log(to);
-      console.log(from);
+  created() {
+    this.getAdmin();
+  },
+  computed: {
+
+  },
+  methods: {
+    getAdmin(){
+      this.name = this.admin;
+    },
+    logout(){
+
     }
   },
 }

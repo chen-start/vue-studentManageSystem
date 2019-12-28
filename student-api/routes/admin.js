@@ -16,10 +16,11 @@ router.post('/getadmin', (req, res, next) => {
         if(err){
             return res.json({code: 201, message: err})
         }
-        client.db(dbName).collection('admin').find({admin}).toArray((err, result) => {
+        client.db(dbName).collection('admin').find(admin).toArray((err, result) => {
             if(err){
                 return res.json({code: 201, message: err});
             }
+            console.log(result)
             res.json({code: 200, message: '成功', result});
         })
     })
