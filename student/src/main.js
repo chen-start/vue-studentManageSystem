@@ -19,11 +19,10 @@ router.beforeEach((to, from, next) => {
   // console.log(from);
   if (!username && to.name !== 'login') {
     // console.log("11111")
-    next('/');
+    next('/login');
   } else {
     next();
   }
-
 })
 
 new Vue({

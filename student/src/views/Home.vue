@@ -97,6 +97,9 @@ export default {
     this.getinfor();
   },
   methods: {
+    getload() {
+      window.location.replace(location.href);
+    },
     getTrip() {
       axios
         .get("/api/trip/gettrip")
@@ -213,9 +216,9 @@ export default {
       axios
         .get("/api/mine/getinfor")
         .then(res => {
-          console.log(res);
+          // console.log(res);
           this.infor = res.data.result[0];
-          console.log(this.infor);
+          // console.log(this.infor);
         })
         .catch(err => {
           console.log(err);

@@ -35,18 +35,20 @@
 <script>
 import axios from "axios";
 import Qs from "qs";
+import {mapState, mapMutations} from 'vuex';
 export default {
   name: "login",
   data() {
     return {
-      username: "admin",
-      password: "0000",
+      username: "1111",
+      password: "1111",
       form: [],
       dialogFormVisible: false,
       formLabelWidth: '120px'
     };
   },
   methods: {
+    ...mapMutations(['setAdmin', 'setIsLogin']),
     login() {
       let admin = {
         account: this.username,
@@ -55,8 +57,9 @@ export default {
       axios
         .post("/api/admin/getadmin", Qs.stringify(admin))
         .then(res => {
-          console.log(res);
-          localStorage.setItem("username", res.data.result.username);
+          this.setAdmin(this.username);
+          this.setIsLogin();
+          // console.log(res);
           this.$router.push("/home");
           this.$message({
             type: "success",
@@ -64,6 +67,7 @@ export default {
           });
         })
         .catch(err => {
+          console.log(err);
           this.$message({
             type: "info",
             message: "账号或密码错误!"
