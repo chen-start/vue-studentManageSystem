@@ -24,7 +24,7 @@
           <el-submenu index="2" :collapse="false">
             <template slot="title">
               <i class="el-icon-s-tools"></i>
-              <span slot="title">系统管理</span>
+              <span slot="title">教务管理</span>
             </template>
             <el-menu-item index="2-1">
               <i class="el-icon-user"></i>
@@ -36,7 +36,7 @@
             </el-menu-item>
             <el-menu-item index="2-3">
               <i class="el-icon-house"></i>
-              <router-link to="/power">权限管理</router-link>
+              <router-link to="/power">消息管理</router-link>
             </el-menu-item>
             <el-menu-item index="2-4">
               <i class="el-icon-setting"></i>
