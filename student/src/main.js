@@ -18,6 +18,8 @@ router.beforeEach((to, from, next) => {
   // console.log(to);
   // console.log(from);
   if (!username && to.name !== 'login') {
+    console.log(username)
+    console.log(to.name)
     // console.log("11111")
     next('/login');
   } else {

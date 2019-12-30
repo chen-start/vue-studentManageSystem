@@ -37,7 +37,8 @@ router.post('/register', function (req, res, next) {
 });
 
 // 登录接口
-router.post('/login', function (req, res, next) {
+router.post('/adminlogin', function (req, res, next) {
+  console.log(req.body);
   var account = req.body.account;
   var password = req.body.password;
   if (!account || !password) {
@@ -64,6 +65,7 @@ router.post('/login', function (req, res, next) {
 
 // 注销接口
 router.post('/logout', function (req, res, next) {
+  console.log(req.body)
   var account = req.body.account;
   if (!account) {
     return res.json({ code: 201, message: '参数有误！account都不能为空！' });

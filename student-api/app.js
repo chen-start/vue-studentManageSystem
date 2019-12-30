@@ -10,6 +10,7 @@ var tripRouter = require('./routes/trip');
 var adminRouter = require('./routes/admin');
 var loginRouter = require('./routes/login');
 var userRouter = require('./routes/user');
+var powerRouter = require('./routes/power');
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use('/trip', tripRouter);
 app.use('/admin', adminRouter);
 app.use('/login', loginRouter);
 app.use('/user', userRouter);
+app.use('/power', powerRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

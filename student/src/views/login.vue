@@ -40,8 +40,8 @@ export default {
   name: "login",
   data() {
     return {
-      username: "1111",
-      password: "1111",
+      username: "admin",
+      password: "0000",
       form: [],
       dialogFormVisible: false,
       formLabelWidth: '120px'
@@ -50,16 +50,17 @@ export default {
   methods: {
     ...mapMutations(['setAdmin', 'setIsLogin']),
     login() {
-      let admin = {
-        account: this.username,
-        password: this.password
-      };
       axios
-        .post("/api/admin/getadmin", Qs.stringify(admin))
+        .post("/api/login/adminlogin", { 
+          account: this.username,
+          password: this.password
+        })
         .then(res => {
           this.setAdmin(this.username);
           this.setIsLogin();
-          // console.log(res);
+          this.username = '';
+          this.password = '';
+          console.log(res);
           this.$router.push("/home");
           this.$message({
             type: "success",

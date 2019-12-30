@@ -28,7 +28,7 @@
             </template>
             <el-menu-item index="2-1">
               <i class="el-icon-user"></i>
-              <router-link to="/user">家长管理</router-link>
+              <router-link to="/user">职工管理</router-link>
             </el-menu-item>
             <el-menu-item index="2-2">
               <i class="el-icon-view"></i>
@@ -60,15 +60,15 @@
 
 <script>
 import axios from "axios";
-import {mapState, mapMutations} from 'vuex'
+import { mapState, mapMutations } from "vuex";
 export default {
   name: "app",
   data() {
     return {
-      name: "",
-      show: true,
+      name: "admin",
+      show: true
     };
-  },
+  }, 
   created() {
     this.getAdmin();
   },
@@ -79,31 +79,42 @@ export default {
     }
   },
   computed: {
-    ...mapState(['isLogin', 'admin']),
+    ...mapState(["isLogin", "admin"])
   },
   methods: {
-    ...mapMutations(['change']),
+    ...mapMutations(["change"]),
     getAdmin() {
       this.show = this.isLogin;
-      console.log(this.isLogin);
-      console.log(this.show);
+      // console.log(this.isLogin);
+      // console.log(this.show);
       this.show - true;
       this.name = this.admin;
-      console.log('this.name', this.name)
+      // console.log('this.name', this.name)
     },
     logout() {
       axios
-        .put("/api/admin/putadmin", { name })
+        .post("/api/login/logout", {
+          account: this.admin
+        })
         .then(res => {
-          // console.log(res);
+          console.log(res);
+          console.log(this.username)
+          if (res.data.code === 201) {
+            this.$message({
+              type: "info",
+              message: "注销失败，请联系管理员" 
+            });
+          } else {
+            this.name = "";
+            console.log(this.show);
+            this.change();
+            this.$router.push("/login");
+            this.$message({
+              type: "success",
+              message: "注销成功"
+            });
+          }
           // this.show = false;
-          this.name = '';
-          console.log(this.show);
-          this.$router.push("/login");
-          this.$message({
-            type: "success",
-            message: "注销成功"
-          });
         })
         .catch(err => {
           // console.log(err)

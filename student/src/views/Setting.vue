@@ -1,5 +1,12 @@
 <template>
-    <div class="setting">
-        <h1>系统设置页面</h1> 
-    </div>
+  <div class="setting">
+    <h1>设置页面</h1>
+  </div>
 </template>
+
+<script>
+export default {
+    name: 'setting',
+    
+}
+</script>
