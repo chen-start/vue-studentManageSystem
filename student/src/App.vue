@@ -6,8 +6,8 @@
           <img src="./assets/logo.svg" alt="logo" />
         </el-col>
         <el-col :span="4" class="right">
-          <span class="user">{{ name }}</span>
-          <el-button type="danger" v-if="show" size="small" @click="logout">注销</el-button>
+          <span class="user" v-if="isLogin">{{ name }}</span>
+          <el-button type="danger" v-if="isLogin" size="small" @click="logout">注销</el-button>
         </el-col>
       </el-row>
     </el-header>
@@ -65,71 +65,56 @@ export default {
   name: "app",
   data() {
     return {
-      name: "admin",
-      show: true
+      name: "",
+      isLogin: ''
     };
-  }, 
-  created() {
-    this.getAdmin();
   },
-  watch: {
-    isLogin() {
-      this.show = true;
-      console.log(this.isLogin);
+  created() {
+    this.name = localStorage.getItem("username");
+    console.log(this.name);
+    console.log(this.isLogin);
+    if(this.name){
+      this.isLogin = true;
+    }else{
+      this.isLogin = false;
     }
   },
-  computed: {
-    ...mapState(["isLogin", "admin"])
+  watch: {
+
   },
   methods: {
     ...mapMutations(["change"]),
-    getAdmin() {
-      this.show = this.isLogin;
-      // console.log(this.isLogin);
-      // console.log(this.show);
-      this.show - true;
-      this.name = this.admin;
-      // console.log('this.name', this.name)
-    },
+    
     logout() {
+      let account = localStorage.getItem('username');
       axios
         .post("/api/login/logout", {
-          account: this.admin
+          account
         })
         .then(res => {
-          console.log(res);
-          console.log(this.username)
           if (res.data.code === 201) {
             this.$message({
               type: "info",
-              message: "注销失败，请联系管理员" 
+              message: "注销失败，请联系管理员"
             });
           } else {
             this.name = "";
-            console.log(this.show);
-            this.change();
+            this.change(this.name);
             this.$router.push("/login");
             this.$message({
               type: "success",
               message: "注销成功"
             });
           }
-          // this.show = false;
         })
         .catch(err => {
-          // console.log(err)
           this.$message({
             type: "info",
             message: "注销失败"
           });
         });
     },
-    setadmin() {
-      console.log("111");
-      if (this.isLogin) {
-        return (this.show = true);
-      }
-    }
+
   }
 };
 </script>

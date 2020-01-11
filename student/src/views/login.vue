@@ -48,7 +48,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(['setAdmin', 'setIsLogin']),
+    ...mapMutations(['setAdmin']),
     login() {
       axios
         .post("/api/login/adminlogin", { 
@@ -57,10 +57,8 @@ export default {
         })
         .then(res => {
           this.setAdmin(this.username);
-          this.setIsLogin();
           this.username = '';
           this.password = '';
-          console.log(res);
           this.$router.push("/home");
           this.$message({
             type: "success",

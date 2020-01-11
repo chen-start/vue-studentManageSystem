@@ -5,20 +5,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isLogin: false,
     admin: '',
   },
   mutations: {
     setAdmin(state, data){
+      localStorage.setItem('username', data)
       state.admin = data
-      console.log(state.admin)
     },
-    setIsLogin(state){
-      state.isLogin = true;
-    },
-    change(state){
-      state.isLogin = false;
-      console.log(state.isLogin);
+    change(state, data){
+      localStorage.removeItem('username', data)
     }
   },
   actions: {

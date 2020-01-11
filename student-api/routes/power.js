@@ -100,4 +100,27 @@ router.get('/getcommunity', (req, res, next) => {
     })
 })
 
+router.post('/addThing', (req, res, next) => {
+    let thing = req.body;
+    console.log(req.body);
+    if(!req.body.date || !req.body.name || !req.body.thing){
+        res.json({code: 201, message: '参数date，thing，name不能为空！'})
+    }
+    let Expression=/^((((1[6-9]|[2-9]\d)\d{2})(\/|\-)(0?[13578]|1[02])(\/|\-)(0?[1-9]|[12]\d|3[01]))|(((1[6-9]|[2-9]\d)\d{2})(\/|\-)(0?[13456789]|1[012])(\/|\-)(0?[1-9]|[12]\d|30))|(((1[6-9]|[2-9]\d)\d{2})(\/|\-)0?2(\/|\-)(0?[1-9]|1\d|2[0-8]))|(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))-0?2-29-))$/;
+    let dateExp = new RegExp(Expression);
+    if(dateExp.test(req.body.date) == false){
+        return res.json({code: 201, message: '参数date必须是日期形式!'});
+    }
+    MongoClient.connect(uri, { useUnifiedTopology: true }, (err, client) => {
+        if(err){
+            return res.json({code: 201, message: err});
+        }
+        client.db(dbName).collection('information').insertOne(thing).then(result => {
+            return res.json({code: 200, message: '成功', result})
+        }).catch(err => {
+            return res.json({code: 201, message: err})
+        })
+    })
+})
+
 module.exports = router;
